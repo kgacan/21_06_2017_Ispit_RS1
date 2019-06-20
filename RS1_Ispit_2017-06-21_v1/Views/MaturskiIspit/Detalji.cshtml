@@ -1,0 +1,35 @@
+﻿@model MaturskiIspitDetaljiVM
+@{
+    ViewData["Title"] = "Detalji";
+}
+
+<h2>Detalji</h2>
+
+<table>
+    <tr>
+        <td>Ispitivac: </td>
+        <td><b>@Model.Ispitivac</b></td>
+    </tr>
+    <tr>
+        <td>Datum: </td>
+        <td><b>@Model.Datum</b></td>
+    </tr>
+    <tr>
+        <td>Odjeljenje: </td>
+        <td><b>@Model.Odjeljenje</b></td>
+    </tr>
+</table>
+
+<div id="ajaxDiv" style="border:1px solid;"></div>
+
+
+
+<script>
+    $.get({
+        url: "/MaturskiIspit/Rezultati?id=@Model.MaturskiIspitId",
+        success: function (rez) {
+            $("#ajaxDiv").html(rez);
+        }
+    });
+</script>
+

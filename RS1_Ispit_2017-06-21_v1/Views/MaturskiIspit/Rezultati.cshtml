@@ -1,0 +1,63 @@
+﻿@model MaturskiIspitRezultatiVM
+
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Ucenik</th>
+            <th>Opci uspjeh</th>
+            <th>Bodovi</th>
+            <th>Oslobodjen</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var x in Model.listaRezultata)
+        {
+            <tr>
+                <td>@x.ucenik</td>
+                <td>@x.OpciUspjeh</td>
+                <td>
+                    @if (x.MaxBodovi == -1)
+                    {
+                        <span>(Oslobodjen)</span>
+                    }
+                    else
+                    {
+
+                        <form ajax='da' >
+                            <input name="MaxBodovi" asp-for="@x.MaxBodovi" />
+
+                            <input name="MaturskiIpsitStavkaId" asp-for="@x.MaturskiIpsitStavkaId" hidden />
+                            <span asp-validation-for="@x.MaturskiIpsitStavkaId" class="text-danger"></span>
+
+                            <button type="submit" class="btn btn-primary">Snimi</button>
+                        </form>
+                    }
+                </td>
+                <td>@x.Oslobodjen <a href="/MaturskiIspit/Promijeni?Id=@x.MaturskiIpsitStavkaId">(promijeni)</a></td>
+                <td><button ajax-poziv='da' ajax-url="/MaturskiIspit/EvidentiranjeBodova?id=@x.MaturskiIpsitStavkaId" ajax-rezultat="ajaxDiv" class="btn btn-primary">Uredi</button></td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<script>
+    $(document).ready(function ()
+    {
+        $("form[ajax='da']").submit(function () {
+
+            event.preventDefault();
+            var podaci = $(this);
+            var adresa = "/MaturskiIspit/SnimiJQ";
+
+            $.ajax({
+                url: adresa,
+                data: podaci.serialize(),
+                success: function () { }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,14 @@
+﻿@model EvidentiranjeBodovaVM
+
+
+<form asp-action="SnimiBodove">
+
+    <span>Ucenik: @Model.Ucenik</span>
+    <div class="form-group">
+        <label>Bodovi</label>
+        <input asp-for="Bodovi"/>
+    </div>
+    <input asp-for="MaturskiIspitStavkaId" hidden/>
+
+    <button type="submit" class="btn btn-primary">Snimi</button>
+</form>

@@ -1,0 +1,37 @@
+﻿@model MaturskiIspitIndexVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Datum</th>
+            <th>Odjeljenje</th>
+            <th>Prosjecni bodovi</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.listaIspita)
+        {
+            <tr>
+                <td>@x.Datum</td>
+                <td>@x.Odjeljenje</td>
+                <td>@x.ProsjecniBodovi</td>
+                <td>
+                @if (x.NastavnikNaIspituId == Model.NastavnikId)
+                {
+                    <a href="/MaturskiIspit/Detalji?id=@x.MaturskiIspitId" class="btn btn-primary">Detalji</a>
+                }
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+<a href="/MaturskiIspit/Dodaj?id=@Model.NastavnikId" class="btn btn-primary">Dodaj</a>
+
